@@ -1,8 +1,15 @@
 [build]
-  command = "npm run build"
+  command = "CI= npm run build"
   publish = "build"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  force = true
+
+[build.environment]
+  # Important: Replace these with your actual values in the Netlify dashboard
+  # This just prevents build failures, your actual secrets should be in Netlify UI
+  REACT_APP_TMDB_API_KEY = "placeholder"
+  REACT_APP_FIREBASE_API_KEY = "placeholder"
