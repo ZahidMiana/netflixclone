@@ -2,6 +2,8 @@
 
 ![Mianaflix](./public/netflix.png)
 
+https://vermillion-klepon-d6f4e9.netlify.app/    //access via this link
+
 ## ✨ Overview
 Mianaflix is a full-featured Netflix clone built with React, Redux, and Firebase. It replicates the core functionality and UI of Netflix, including user authentication, movie browsing, searching, and trailer playback.
 
