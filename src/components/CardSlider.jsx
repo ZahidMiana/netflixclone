@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Card from './Card';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
@@ -7,24 +7,54 @@ export default function CardSlider({ data, title }) {
     const listRef = useRef();
     const [sliderPosition, setSliderPosition] = useState(0);
     const [showControls, setShowControls] = useState(false);
+    const [maxSlides, setMaxSlides] = useState(4);
+    const [cardWidth, setCardWidth] = useState(230);
+
+    // Responsive settings based on screen width
+    useEffect(() => {
+        const updateDimensions = () => {
+            const width = window.innerWidth;
+            if (width <= 480) {
+                setCardWidth(160);
+                setMaxSlides(data.length - 1);
+            } else if (width <= 768) {
+                setCardWidth(190);
+                setMaxSlides(data.length - 2);
+            } else {
+                setCardWidth(230);
+                setMaxSlides(data.length - 5);
+            }
+        };
+
+        updateDimensions();
+        window.addEventListener('resize', updateDimensions);
+        return () => window.removeEventListener('resize', updateDimensions);
+    }, [data.length]);
 
     const handleDirection = (direction) => {
         let distance = listRef.current.getBoundingClientRect().x - 70;
         if (direction === "left" && sliderPosition > 0) {
-            listRef.current.style.transform = `translateX(${230 + distance}px)`;
+            listRef.current.style.transform = `translateX(${cardWidth + distance}px)`;
             setSliderPosition(sliderPosition - 1);
         }
-        if (direction === "right" && sliderPosition < 4) {
-            listRef.current.style.transform = `translateX(${-230 + distance}px)`;
+        if (direction === "right" && sliderPosition < maxSlides) {
+            listRef.current.style.transform = `translateX(${-cardWidth + distance}px)`;
             setSliderPosition(sliderPosition + 1);
         }
     };
 
+    // Always show controls on touch devices
+    useEffect(() => {
+        if ('ontouchstart' in window) {
+            setShowControls(true);
+        }
+    }, []);
+
     return (
         <Container 
-            className="flex column"
+            className="card-slider flex column"
             onMouseEnter={() => setShowControls(true)}
-            onMouseLeave={() => setShowControls(false)}
+            onMouseLeave={() => !('ontouchstart' in window) && setShowControls(false)}
         >
             <h1>{title}</h1>
             
@@ -43,7 +73,7 @@ export default function CardSlider({ data, title }) {
                     }
                 </div>
                 <div 
-                    className={`slider-action right ${!showControls ? "none" : ""} ${sliderPosition === 4 && "none"}`}
+                    className={`slider-action right ${!showControls ? "none" : ""} ${sliderPosition >= maxSlides && "none"}`}
                     onClick={() => handleDirection("right")}
                 >
                     <AiOutlineRight />
@@ -63,10 +93,21 @@ const Container = styled.div`
         color: white;
         font-size: 1.8rem;
         font-weight: 600;
+        
+        @media screen and (max-width: 768px) {
+            margin-left: 30px;
+            font-size: 1.5rem;
+        }
+        
+        @media screen and (max-width: 480px) {
+            margin-left: 20px;
+            font-size: 1.2rem;
+        }
     }
     
     .wrapper {
         position: relative;
+        overflow: hidden;
         
         .slider {
             width: max-content;
@@ -74,6 +115,16 @@ const Container = styled.div`
             transform: translateX(0px);
             transition: 0.3s ease-in-out;
             margin-left: 50px;
+            
+            @media screen and (max-width: 768px) {
+                margin-left: 30px;
+                gap: 0.7rem;
+            }
+            
+            @media screen and (max-width: 480px) {
+                margin-left: 20px;
+                gap: 0.5rem;
+            }
         }
         
         .slider-action {
@@ -86,6 +137,10 @@ const Container = styled.div`
             transition: 0.3s ease-in-out;
             cursor: pointer;
             
+            @media screen and (max-width: 480px) {
+                width: 40px;
+            }
+            
             svg {
                 position: absolute;
                 top: 50%;
@@ -93,6 +148,14 @@ const Container = styled.div`
                 transform: translate(-50%, -50%);
                 font-size: 2rem;
                 color: white;
+                
+                @media screen and (max-width: 768px) {
+                    font-size: 1.5rem;
+                }
+                
+                @media screen and (max-width: 480px) {
+                    font-size: 1.2rem;
+                }
             }
             
             &.left {

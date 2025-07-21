@@ -131,6 +131,16 @@ const Container = styled.div`
     cursor: pointer;
     position: relative;
     
+    @media screen and (max-width: 768px) {
+        max-width: 190px;
+        width: 190px;
+    }
+    
+    @media screen and (max-width: 480px) {
+        max-width: 160px;
+        width: 160px;
+    }
+    
     img {
         border-radius: 0.2rem;
         width: 100%;
@@ -148,6 +158,16 @@ const Container = styled.div`
         border-radius: 0.3rem;
         box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
         background-color: #181818;
+        
+        @media screen and (max-width: 768px) {
+            width: 16rem;
+            top: -15vh;
+        }
+        
+        @media screen and (max-width: 480px) {
+            width: 14rem;
+            top: -12vh;
+        }
         transition: 0.3s ease-in-out;
         
         .image-video-container {

@@ -11,12 +11,47 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: black;
   color: white;
+  overflow-x: hidden;
 }
 
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Global responsive styles */
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  h2 {
+    font-size: 1.2rem !important;
+  }
+  
+  p {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 1.2rem !important;
+  }
+  
+  h2 {
+    font-size: 1rem !important;
+  }
+  
+  p {
+    font-size: 0.8rem !important;
+  }
+  
+  button {
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.8rem !important;
+  }
 }
 
 html,
