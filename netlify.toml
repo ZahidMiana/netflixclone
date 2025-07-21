@@ -8,13 +8,4 @@
   status = 200
   force = true
 
-[build.environment]
-  # Important: These are placeholders. For security, add your actual values in the Netlify dashboard
-  # Environment variables section instead of keeping them in this file
-  REACT_APP_TMDB_API_KEY = "placeholder_tmdb_key"
-  REACT_APP_FIREBASE_API_KEY = "placeholder_firebase_key"
-  REACT_APP_FIREBASE_AUTH_DOMAIN = "placeholder_auth_domain"
-  REACT_APP_FIREBASE_PROJECT_ID = "placeholder_project_id"
-  REACT_APP_FIREBASE_STORAGE_BUCKET = "placeholder_storage_bucket"
-  REACT_APP_FIREBASE_MESSAGING_SENDER_ID = "placeholder_sender_id"
-  REACT_APP_FIREBASE_APP_ID = "placeholder_app_id"
+
